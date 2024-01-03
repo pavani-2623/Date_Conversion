@@ -1,0 +1,29 @@
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class TimeConversionExample {
+
+    public static void main(String[] args) {
+        // Set the input time and time zone
+        LocalDateTime localDateTime = LocalDateTime.now(); // or specify your own LocalDateTime
+        ZoneId sourceZone = ZoneId.of("UTC"); // source time zone
+
+        // Convert to a specific time zone using a valid time zone identifier
+        String targetTimeZoneId = "America/New_York"; // specify the target time zone identifier
+        ZoneId targetZone = ZoneId.of(targetTimeZoneId);
+
+        ZonedDateTime sourceZonedDateTime = ZonedDateTime.of(localDateTime, sourceZone);
+        ZonedDateTime targetZonedDateTime = sourceZonedDateTime.withZoneSameInstant(targetZone);
+
+        // Format the result
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss Z");
+        String sourceFormatted = sourceZonedDateTime.format(formatter);
+        String targetFormatted = targetZonedDateTime.format(formatter);
+
+        // Print the result
+        System.out.println("Source time: " + sourceFormatted);
+        System.out.println("Target time in " + targetTimeZoneId + ": " + targetFormatted);
+    }
+}
